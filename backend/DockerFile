@@ -1,0 +1,16 @@
+From node:22-alpine
+
+Workdir /app
+
+Copy .package.json .package.json
+Copy .package-lock.json .package-lock.json
+
+Run npm install 
+
+Copy . . 
+
+Run npm run build
+
+Expose 3000:3000
+
+CMD ["npm" , "run" , "start"]
