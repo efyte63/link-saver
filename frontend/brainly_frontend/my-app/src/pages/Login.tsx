@@ -11,16 +11,25 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+ const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
 
-    await login(username, password); // store handles errors internally
+  setMessage("");
 
-    // ⚠️ always runs (because store doesn't throw)
-    setMessage("Login attempted");
-    navigate("/real");
-  };
+  if (!username.trim() || !password.trim()) {
+    setMessage("All fields are required.");
+    return;
+  }
 
+  const success = await login(username, password);
+
+  if (!success) {
+    setMessage("Invalid email or password.");
+    return;
+  }
+
+  navigate("/real");
+};
   return (
     <div className="flex items-center justify-center min-h-screen bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-[400px]">
@@ -30,8 +39,8 @@ const Login: React.FC = () => {
 
         <form onSubmit={handleLogin} className="flex flex-col gap-4">
           <input
-            type="text"
-            placeholder="Username"
+            type="email"
+            placeholder="email"
             className="border p-2 rounded"
             value={username}
             onChange={(e) => setUsername(e.target.value)}

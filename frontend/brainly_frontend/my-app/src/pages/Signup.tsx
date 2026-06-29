@@ -5,27 +5,45 @@ import { useAuthStore } from "../store/auth.store";
 const SignupPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [email , setemail] = useState("");
   const [loading, setLoading] = useState(false);
 
   const signup = useAuthStore((store) => store.signup);
   const navigate = useNavigate();
+async function handleSignup(e: React.FormEvent) {
+  e.preventDefault();
 
-  async function handleSignup(e: React.FormEvent) {
-    e.preventDefault();
-
-    setLoading(true);
-
-    try {
-      await signup(username, password); // call store
-
-      alert("Signup successful!");
-      navigate("/login");
-    } catch (error) {
-      alert("Signup failed");
-    } finally {
-      setLoading(false);
-    }
+  if (!email.trim() || !password.trim() || !username.trim()) {
+    alert("Please fill all fields.");
+    return;
   }
+
+  if (password.length < 6) {
+    alert("Password must be at least 6 characters.");
+    return;
+  }
+
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+  if (!emailRegex.test(email)) {
+    alert("Please enter a valid email.");
+    return;
+  }
+
+  setLoading(true);
+
+  const success = await signup(username ,email, password);
+
+  setLoading(false);
+
+  if (!success) {
+    alert("Signup failed.");
+    return;
+  }
+
+  alert("Signup successful!");
+  navigate("/login");
+}
 
   return (
     <div className="h-screen flex justify-center items-center bg-gray-100">
@@ -43,6 +61,17 @@ const SignupPage = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
+
+         <input
+          type="email"
+          placeholder="email"
+          className="border p-2 rounded"
+          value={email}
+          onChange={(e) => setemail(e.target.value)}
+          required
+        />
+
+        
 
         <input
           type="password"

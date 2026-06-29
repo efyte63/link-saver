@@ -14,9 +14,8 @@ interface AuthState {
   onlineusers: string[];
   allusers: any[];
   
-
-  login: (username: string, password: string) => Promise<void>;
-  signup: (username: string, password: string) => Promise<void>;
+login: (email: string, password: string) => Promise<boolean>;
+signup: (username:string ,email: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   getallusers:  ()=>void;
   connectSocket: () => void;
@@ -28,32 +27,36 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   socket: null,
   onlineusers: [],
    allusers: [],
+login: async (email, password) => {
+  try {
+    const res = await axiosInstance.post("/app/v1/signin", {
+      email,
+      password,
+    });
 
-  login: async (username, password) => {
-    try {
-      const res = await axiosInstance.post("/app/v1/signin", {
-        username,
-        password,
-      });
+    set({ user: res.data.user });
+    get().connectSocket();
 
-      set({ user: res.data.user });
-      get().connectSocket();
-    } catch (error) {
-      console.log(error);
-    }
-  },
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+},
+signup: async (username ,email, password) => {
+  try {
+    await axiosInstance.post("/app/v1/signup", {
+      username,
+      email,
+      password,
+    });
 
-  signup: async (username, password) => {
-    try {
-      await axiosInstance.post("/app/v1/signup", {
-        username,
-        password,
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  },
-
+    return true;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+},
   logout: async () => {
     try {
       await axiosInstance.post("/app/v1/logout");
