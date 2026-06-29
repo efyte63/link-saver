@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
-const jwtSign = "dhgcshgsdhj";
+import dotenv from "dotenv";
+dotenv.config();
+const jwtSign = process.env.jwtSign;
 export default function middleware(req, res, next) {
     const token = req.cookies?.jwt;
     if (!token) {

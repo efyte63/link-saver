@@ -1,12 +1,12 @@
 import jwt from "jsonwebtoken";
 import type { Request, Response, NextFunction } from "express";
+import dotenv from "dotenv"
+dotenv.config();
 
-const jwtSign = "dhgcshgsdhj";
-
+const jwtSign = process.env.jwtSign as string ;
 interface CustomRequest extends Request {
   userId?: string;
 }
-
 export default function middleware(
   req: CustomRequest,
   res: Response,

@@ -1,7 +1,6 @@
 import http from "http";
 import { Server } from "socket.io";
 import express from "express";
-import { log } from "console";
 const app = express();
 const server = http.createServer(app);
 const onlineUsers = new Map();

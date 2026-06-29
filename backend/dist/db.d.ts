@@ -1,16 +1,19 @@
 import mongoose from "mongoose";
 export declare const UserModel: mongoose.Model<{
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 }, {}, {}, {
     id: string;
 }, mongoose.Document<unknown, {}, {
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;
@@ -19,15 +22,18 @@ export declare const UserModel: mongoose.Model<{
 }, "id"> & {
     id: string;
 }, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, mongoose.DefaultSchemaOptions, {
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 }, mongoose.Document<unknown, {}, {
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 }, {
     id: string;
 }, mongoose.DefaultSchemaOptions> & Omit<{
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;
@@ -36,14 +42,16 @@ export declare const UserModel: mongoose.Model<{
 }, "id"> & {
     id: string;
 }, unknown, {
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
 }>, {
-    username?: string | null;
+    username: string;
+    email: string;
     password?: string | null;
 } & {
     _id: mongoose.Types.ObjectId;

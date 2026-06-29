@@ -8,12 +8,11 @@ import cookieParser from "cookie-parser";
 import { UserModel, ContentModel, LinkModel , MessageModel } from "./db.js";
 import middleware from "./middleware.js";
 import { app, server, io , returnsocketid  } from "./socket.js";
+import dotenv from "dotenv";
 import { log } from "console";
 
 
 
-
-const jwtSign = "dhgcshgsdhj";
 
 
 interface CustomRequest extends Request {
@@ -25,13 +24,15 @@ app.use(cors({
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
+dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
 
-
+const jwtSign = process.env.jwtSign as string;
 /* ================= SIGNUP ================= */
 app.post("/app/v1/signup", async (req: Request, res: Response) => {
-  const { username, password } = req.body;
+  const { username, password ,email } = req.body;
+
 
   const hashedPassword = crypto
     .createHash("sha256")
@@ -42,6 +43,7 @@ app.post("/app/v1/signup", async (req: Request, res: Response) => {
     await UserModel.create({
       username,
       password: hashedPassword,
+      email
     });
 
     return res.status(200).json({
@@ -54,14 +56,11 @@ app.post("/app/v1/signup", async (req: Request, res: Response) => {
   }
 });
 
-
-
-
 /* ================= SIGNIN ================= */
 app.post("/app/v1/signin", async (req: Request, res: Response) => {
-  console.log("Signin hit");
 
-  const { username, password } = req.body;
+  const { password , email } = req.body;
+  console.log(password,email);
 
   const hashedPassword = crypto
     .createHash("sha256")
@@ -70,8 +69,8 @@ app.post("/app/v1/signin", async (req: Request, res: Response) => {
 
   const user = await UserModel
     .findOne({
-      username,
       password: hashedPassword,
+      email
     })
     .select("-password");
 
@@ -270,11 +269,6 @@ app.post("/app/v1/Brain/shareLink", middleware, async (req: CustomRequest, res: 
     });
 });
 
-
-
-
-
-
 /* ================= SEARCH ================= */
 app.get("/search", middleware, async (req: CustomRequest, res: Response) => {
   try {
@@ -321,12 +315,6 @@ app.get("/search", middleware, async (req: CustomRequest, res: Response) => {
     res.status(500).json({ message: "Server error" });
   }
 });
-
-
-
-
-
-
 
 //////////==================messageRoutes==============/////////////
 

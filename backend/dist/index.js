@@ -7,18 +7,20 @@ import cookieParser from "cookie-parser";
 import { UserModel, ContentModel, LinkModel, MessageModel } from "./db.js";
 import middleware from "./middleware.js";
 import { app, server, io, returnsocketid } from "./socket.js";
+import dotenv from "dotenv";
 import { log } from "console";
-const jwtSign = "dhgcshgsdhj";
 app.use(cors({
     origin: "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));
+dotenv.config();
 app.use(express.json());
 app.use(cookieParser());
+const jwtSign = process.env.jwtSign;
 /* ================= SIGNUP ================= */
 app.post("/app/v1/signup", async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, email } = req.body;
     const hashedPassword = crypto
         .createHash("sha256")
         .update(password)
@@ -27,6 +29,7 @@ app.post("/app/v1/signup", async (req, res) => {
         await UserModel.create({
             username,
             password: hashedPassword,
+            email
         });
         return res.status(200).json({
             message: "User signed up",
@@ -40,16 +43,16 @@ app.post("/app/v1/signup", async (req, res) => {
 });
 /* ================= SIGNIN ================= */
 app.post("/app/v1/signin", async (req, res) => {
-    console.log("Signin hit");
-    const { username, password } = req.body;
+    const { password, email } = req.body;
+    console.log(password, email);
     const hashedPassword = crypto
         .createHash("sha256")
         .update(password)
         .digest("hex");
     const user = await UserModel
         .findOne({
-        username,
         password: hashedPassword,
+        email
     })
         .select("-password");
     if (!user) {

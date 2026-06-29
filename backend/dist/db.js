@@ -1,12 +1,19 @@
 import mongoose from "mongoose";
+import dotenv from "dotenv";
+dotenv.config();
+const Mongo_url = process.env.MONGO_URL;
 await mongoose
-    .connect("mongodb://yt-auth:GheQQ3p0I2LO1NRG@ac-6zq3hpf-shard-00-00.ydvtpa3.mongodb.net:27017,ac-6zq3hpf-shard-00-01.ydvtpa3.mongodb.net:27017,ac-6zq3hpf-shard-00-02.ydvtpa3.mongodb.net:27017/?ssl=true&replicaSet=atlas-nu30vv-shard-0&authSource=admin&appName=yt-auth")
+    .connect(Mongo_url)
     .then(() => console.log("MongoDB connected"))
     .catch((err) => console.log("MongoDB error:", err));
 const userSchema = new mongoose.Schema({
     username: {
         type: String,
-        unique: true
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
     },
     password: {
         type: String

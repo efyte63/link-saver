@@ -1,31 +1,20 @@
 import http from "http";
 import {Server} from "socket.io";
 import  express from "express";
-import { log } from "console";
-
-
-
 const app = express();
-
 const server = http.createServer(app);
 const onlineUsers = new Map<string, string>();
-
 const io:any = new Server(server, {
   cors: {
     origin: "http://localhost:5173",
     credentials: true,
   },
 });
-
-
-
 function returnsocketid(userid :string)
 {
   return onlineUsers.get(userid);
 
 }
-
-
 io.on("connection" , (socket:any)=>{
   console.log(`new connection ${socket.id}`);
   
@@ -45,7 +34,4 @@ io.emit("onlineusers", Array.from(onlineUsers.keys())); // optional but better
 
     })
 })
-
-
-
 export {app, io , server , returnsocketid} 
