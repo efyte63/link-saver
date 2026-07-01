@@ -31,22 +31,48 @@ export const messageStore = create<MessageStore>((set, get) => ({
       console.log(error);
     }
   },
-  sendmessage: async (reciverid, text) => {
-    if (!reciverid) return;
-    try {
-      console.log("call is going")
-      const res = await axiosInstance.post("/sendmsg", {
-        reciverid,
-        text
-      });
-      console.log("call gone")
-      set({
-        messages: [...get().messages, res.data.message],
-      });
-    } catch (error) {
-      console.log(error);
+ sendmessage: async (reciverid, text) => {
+  if (!reciverid) {
+    console.log("❌ No receiver selected");
+    return;
+  }
+
+  try {
+    console.log("========== SEND MESSAGE ==========");
+    console.log("Receiver ID:", reciverid);
+    console.log("Text:", text);
+
+    const res = await axiosInstance.post("/sendmsg", {
+      reciverid,
+      text,
+    });
+
+    console.log("✅ Server Response:", res.status);
+    console.log(res.data);
+
+    set({
+      messages: [...get().messages, res.data.message],
+    });
+
+    console.log("✅ Message added to local state");
+  } catch (error: any) {
+    console.log("❌ SEND MESSAGE ERROR");
+
+    if (error.response) {
+      console.log("Status:", error.response.status);
+      console.log("Data:", error.response.data);
+    } else if (error.request) {
+      console.log("No response received from server");
+      console.log(error.request);
+    } else {
+      console.log(error.message);
     }
-  },subscribedmessage: () => {
+
+    console.log(error);
+  }
+},
+  
+  subscribedmessage: () => {
   const socket = useAuthStore.getState().socket;
   if (!socket) return;
       socket.off("messagesend");
