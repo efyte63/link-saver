@@ -16,22 +16,38 @@ export function Cards(props: Cardinterface) {
       href={props.link.toString()}
       target="_blank"
       rel="noopener noreferrer"
-     className="block h-[300px] w-[300px] bg-gradient-to-br from-red-100 via-pink-100 to-purple-100 border border-black rounded-lg shadow hover:shadow-lg transition"
+      className="
+        block
+        w-[95%] sm:w-[260px] md:w-[300px]
+        min-h-[180px] sm:min-h-[230px] md:h-[300px]
+        bg-gradient-to-br
+        from-red-100 via-pink-100 to-purple-100
+        border border-black
+        rounded-xl
+        shadow-md
+        hover:shadow-xl
+        transition-all
+        duration-300
+        overflow-hidden
+      "
     >
       {/* Top Section */}
-      <div className="relative top-[15px] h-[100px] w-[300px] flex">
+      <div className="flex justify-between items-start p-3">
 
         {/* Title */}
-        <div className="h-[100px] w-[220px]">
-          <h3 className="text-2xl pl-2">{props.tittle}</h3>
+        <div className="flex-1 pr-2">
+          <h3 className="text-lg sm:text-xl md:text-2xl font-semibold break-words">
+            {props.tittle}
+          </h3>
         </div>
 
         {/* Buttons */}
-        <div className="h-[70px] w-[76px] flex gap-2">
+        <div className="flex gap-2">
+
           <Button
             variant="secondary"
             size="sm"
-            text=" "
+            text=""
             startIcon={<Shareicon size="sm" />}
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault();
@@ -45,7 +61,7 @@ export function Cards(props: Cardinterface) {
           <Button
             variant="secondary"
             size="sm"
-            text=" "
+            text=""
             startIcon={<DeleteIcon size="sm" />}
             onClick={(e: React.MouseEvent<HTMLButtonElement>) => {
               e.preventDefault();
@@ -54,12 +70,17 @@ export function Cards(props: Cardinterface) {
               props.onDelete(props.contentId);
             }}
           />
+
         </div>
       </div>
 
       {/* Description */}
-      <div className="relative top-[20px] h-[230px] w-[300px]">
-        <p className="text-2xl pl-2">{props.description}</p>
+      <div className="px-3 pb-4">
+
+        <p className="text-sm sm:text-lg md:text-xl break-words leading-relaxed">
+          {props.description}
+        </p>
+
       </div>
     </a>
   );

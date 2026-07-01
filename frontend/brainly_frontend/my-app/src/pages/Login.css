@@ -1,0 +1,34 @@
+@keyframes slideLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes rightslide {
+  from {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes bottomtotop{
+    from {
+        opacity: 0;
+    transform: translateY(100px);
+
+    }
+    to {
+        transform: translateY(0);
+    }
+}

@@ -108,7 +108,7 @@ const Real = () => {
         </div>
 
         {/* Search */}
-        <div className="flex items-center gap-2 w-full md:w-auto">
+        <div className="flex items-center gap-2 w-full md:w-auto sm:w-auto">
           <SearchIcon size="md" />
           <input
             className="h-12 w-full md:w-[300px] rounded-full pl-5 border-4 border-sky-500"
@@ -224,13 +224,13 @@ const Real = () => {
       )}
 
       {/* MAIN CONTENT */}
-      <div className="flex flex-col md:flex-row ">
-      <div>
+      <div className="flex">
+      <div className="w-16 md:w-[10vw] lg:w-64">
        <Sidebar />
       </div>
        
 
-       <div className="h-[80vh] w-full pl-[10%] pt-5 flex flex-wrap gap-20 justify-center md:justify-start overflow-y-auto overflow-x-hidden bg-gradient-to-br from-blue-100 via-white to-purple-100">
+       <div className="h-[80vh] md:w-[90vw]  flex flex-wrap gap-20 p-[5%] md:justify-between overflow-y-auto overflow-x-hidden bg-gradient-to-br from-blue-100 via-white to-purple-100">
           {contentlinks.map((d) => (
             <Cards
               key={d._id}
