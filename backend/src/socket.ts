@@ -6,7 +6,10 @@ const server = http.createServer(app);
 const onlineUsers = new Map<string, string>();
 const io:any = new Server(server, {
   cors: {
-    origin:"https://YOUR-VERCEL-APP.vercel.app",
+   origin: [
+  "http://localhost:5173",
+  "https://your-project.vercel.app",
+],
     credentials: true,
   },
 });

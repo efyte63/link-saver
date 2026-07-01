@@ -20,7 +20,10 @@ interface CustomRequest extends Request {
 }
 
 app.use(cors({
-  origin: "https://YOUR-VERCEL-APP.vercel.app",
+ origin: [
+  "http://localhost:5173",
+  "https://your-project.vercel.app",
+],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
