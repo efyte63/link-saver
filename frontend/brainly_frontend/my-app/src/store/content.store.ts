@@ -27,7 +27,7 @@ interface contentstate {
   deletecontent: (id: string) => Promise<void>;
 }
 
-export const usecontent = create<contentstate>((set, get) => ({
+export const usecontent = create<contentstate>((set) => ({
   contentlinks: [],
 
   // GET ALL CONTENT
