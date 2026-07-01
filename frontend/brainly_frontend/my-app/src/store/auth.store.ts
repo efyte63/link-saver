@@ -87,6 +87,7 @@ signup: async (username ,email, password) => {
       "https://link-saver-ashy.vercel.app",
      {
       query: { userId: user._id },
+      transports: ["websocket"],
       withCredentials: true,
     });
 
