@@ -3,7 +3,7 @@ const Sidebar = () => {
   return (
    <div className="relative top-0 h-full w-full bg-gradient-to-b from-[#17141F] via-[#1B1830] to-[#100E19]">
       
-      <div className="flex flex-row gap-2 p-2 sm:flex-col sm:gap-2.5 sm:p-3 md:p-4 md:pt-8">
+      <div className="flex flex-col gap-2 p-2 sm:flex-col sm:gap-2.5 sm:p-3 md:p-4 md:pt-8">
 
        <div className="flex w-full">
 
