@@ -224,27 +224,54 @@ const Real = () => {
       )}
 
       {/* MAIN CONTENT */}
-      <div className="flex">
-      <div className="w-16 md:w-[10vw] lg:w-64">
-       <Sidebar />
-      </div>
-       
+     <div className="flex h-screen overflow-hidden">
+  {/* Sidebar */}
+  <div className="w-16 sm:w-20 md:w-56 lg:w-64 flex-shrink-0">
+    <Sidebar />
+  </div>
 
-       <div className="h-[80vh] md:w-[90vw] sm:w-[99vw] flex flex-wrap gap-20 p-[5%] md:justify-between overflow-y-auto overflow-x-hidden bg-gradient-to-br from-blue-100 via-white to-purple-100">
-          {contentlinks.map((d) => (
-            <Cards
-              key={d._id}
-              tittle={d.title || "No Title"}
-              link={new URL(d.link || "https://example.com")}
-              linktype={d.linktype || "other"}
-              description={d.description || "No Description"}
-              contentId={d._id || "Unknown"}
-              onDelete={handleDelete}
-            />
-          ))}
-
-        </div>
-      </div>
+  {/* Main Content */}
+  <div
+    className="
+      flex-1
+      overflow-y-auto
+      overflow-x-hidden
+      bg-gradient-to-br
+      from-blue-100
+      via-white
+      to-purple-100
+      p-3
+      sm:p-4
+      md:p-6
+      lg:p-8
+    "
+  >
+    <div
+      className="
+        grid
+        grid-cols-1
+        sm:grid-cols-2
+        md:grid-cols-3
+        lg:grid-cols-4
+        xl:grid-cols-5
+        gap-4
+        sm:gap-6
+      "
+    >
+      {contentlinks.map((d) => (
+        <Cards
+          key={d._id}
+          tittle={d.title || "No Title"}
+          link={new URL(d.link || "https://example.com")}
+          linktype={d.linktype || "other"}
+          description={d.description || "No Description"}
+          contentId={d._id || "Unknown"}
+          onDelete={handleDelete}
+        />
+      ))}
+    </div>
+  </div>
+</div>
 
     </div>
   );
