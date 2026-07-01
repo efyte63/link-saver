@@ -84,12 +84,15 @@ signup: async (username ,email, password) => {
     if (!user || socket) return;
 
     const newsocket = io(
-      "https://link-saver-ashy.vercel.app",
-     {
-      query: { userId: user._id },
-      transports: ["websocket"],
-      withCredentials: true,
-    });
+  "https://link-saver-dwzv.onrender.com",
+  {
+    query: {
+      userId: user._id,
+    },
+    transports: ["websocket"],
+    withCredentials: true,
+  }
+);
 
     newsocket.on("connect", () => {
       console.log("socket connected:", newsocket.id);
