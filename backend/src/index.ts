@@ -90,7 +90,12 @@ app.post("/app/v1/signin", async (req: Request, res: Response) => {
     jwtSign
   );
 
-  res.cookie("jwt", token);
+  res.cookie("jwt", token, {
+  httpOnly: true,
+  secure: true,       // Render + Vercel use HTTPS
+  sameSite: "none",   // Required for cross-site cookies
+  maxAge: 7 * 24 * 60 * 60 * 1000,
+});
 
   return res.status(200).json({
     user,

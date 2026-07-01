@@ -83,7 +83,9 @@ signup: async (username ,email, password) => {
 
     if (!user || socket) return;
 
-    const newsocket = io("http://localhost:3000", {
+    const newsocket = io(
+      "https://link-saver-ashy.vercel.app",
+     {
       query: { userId: user._id },
       withCredentials: true,
     });
