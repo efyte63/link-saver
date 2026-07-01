@@ -21,9 +21,9 @@ interface CustomRequest extends Request {
 
 app.use(cors({
  origin: [
-  "http://localhost:5173",
-  "https://your-project.vercel.app",
-],
+      "http://localhost:5173",
+      "https://link-saver-ashy.vercel.app",
+    ],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));

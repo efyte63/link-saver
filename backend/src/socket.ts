@@ -7,9 +7,9 @@ const onlineUsers = new Map<string, string>();
 const io:any = new Server(server, {
   cors: {
    origin: [
-  "http://localhost:5173",
-  "https://your-project.vercel.app",
-],
+      "http://localhost:5173",
+      "https://link-saver-ashy.vercel.app",
+    ],
     credentials: true,
   },
 });
