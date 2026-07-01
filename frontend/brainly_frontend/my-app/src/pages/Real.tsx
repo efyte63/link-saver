@@ -230,7 +230,7 @@ const Real = () => {
       </div>
        
 
-       <div className="h-[80vh] md:w-[90vw]  flex flex-wrap gap-20 p-[5%] md:justify-between overflow-y-auto overflow-x-hidden bg-gradient-to-br from-blue-100 via-white to-purple-100">
+       <div className="h-[80vh] md:w-[90vw] sm:[99vw] flex flex-wrap gap-20 p-[5%] md:justify-between overflow-y-auto overflow-x-hidden bg-gradient-to-br from-blue-100 via-white to-purple-100">
           {contentlinks.map((d) => (
             <Cards
               key={d._id}
